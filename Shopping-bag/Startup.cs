@@ -28,6 +28,10 @@ namespace Shopping_bag
             services.AddControllersWithViews();
 
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IShoppingBagService, ShoppingBagService>();
+
+            services.AddHttpContextAccessor();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +49,7 @@ namespace Shopping_bag
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

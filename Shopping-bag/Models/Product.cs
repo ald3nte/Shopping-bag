@@ -7,14 +7,14 @@ namespace Shopping_bag.Models
 {
     public class Product
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public DateTime DateTime { get; set; }
 
         
 
-        public Product(int id, string name, double price, DateTime dateTime)
+        public Product(Guid id, string name, double price, DateTime dateTime)
         {
             Id = id;
             Name = name;
