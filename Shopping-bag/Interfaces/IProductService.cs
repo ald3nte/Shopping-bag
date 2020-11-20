@@ -10,5 +10,7 @@ namespace Shopping_bag.Interfaces
     {
 
         public  Task<IEnumerable<Product>> GetProducts();
+
+        public Task<Product> GetProductById(Guid productId);
     }
 }

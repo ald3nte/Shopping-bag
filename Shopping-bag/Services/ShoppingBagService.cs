@@ -12,11 +12,13 @@ namespace Shopping_bag.Services
     public class ShoppingBagService : IShoppingBagService
     {
 
-        private static IList<ShoppingBag> _shoppingBag;
+        private static ISet<ShoppingBag> _shoppingBag = new HashSet<ShoppingBag>();
+        private  readonly IProductService _productService;
         private Guid ShoppingBagId;
-        public ShoppingBagService(IServiceProvider services)
+        public ShoppingBagService(IServiceProvider services,IProductService productService)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            _productService = productService;
 
             string bagId = session.GetString("bagId") ?? Guid.NewGuid().ToString();
 
@@ -27,21 +29,25 @@ namespace Shopping_bag.Services
             var shoppingBag = _shoppingBag.Where(b => b.Id == Guid.Parse(bagId)).FirstOrDefault();
 
             if (shoppingBag == null)
+                shoppingBag = new ShoppingBag(ShoppingBagId);
                 _shoppingBag.Add(shoppingBag);
 
         }
 
-        public void AddToCart(Product product, int amount)
+        public async Task AddToCart(Guid productId, int amount)
         {
 
             var shoppingBag = _shoppingBag.FirstOrDefault(b => b.Id == ShoppingBagId);
 
-            var shoppingCartItem = shoppingBag.Items.FirstOrDefault(i => i.productId == product.Id);
+            var shoppingCartItem = shoppingBag.Items.FirstOrDefault(i => i.product.Id == productId);
 
             if (shoppingCartItem == null)
             {
-                shoppingCartItem = new ShoppingBagItem(Guid.NewGuid(), amount, product.Id);
-                shoppingBag.Items.Add(shoppingCartItem);
+
+                var product = await _productService.GetProductById(productId);
+
+                shoppingCartItem = new ShoppingBagItem(Guid.NewGuid(), amount,product);
+                _shoppingBag.FirstOrDefault(b => b.Id == ShoppingBagId).Items.Add(shoppingCartItem);
             }
             else
             {
@@ -52,17 +58,32 @@ namespace Shopping_bag.Services
 
         public ShoppingBag GetShoppingCartItems()
         {
-            throw new NotImplementedException();
+            var shoppingBag = _shoppingBag.FirstOrDefault(b => b.Id == ShoppingBagId);
+
+            return shoppingBag;
         }
 
         public decimal GetShoppingCartTotal()
         {
-            throw new NotImplementedException();
+            var shoppingBag = _shoppingBag.FirstOrDefault(b => b.Id == ShoppingBagId);
+
+            var shoppingBagAmount = shoppingBag.Items.Select(c => c.amount).Sum();
+
+            return shoppingBagAmount;
         }
 
-        public int RemoveFromCart(Product product)
+        public int RemoveFromCart(Guid productId)
         {
+            var shoppingBag = _shoppingBag.FirstOrDefault(b => b.Id == ShoppingBagId);
+            var shopingBagItem=shoppingBag.Items.FirstOrDefault(p => p.product.Id == productId);
+
+            if (shopingBagItem == null)
+            {
+                shoppingBag.Items.Remove(shopingBagItem);
+                return 0;
+            }
             return 1;
+            // save changes
         }
 
 

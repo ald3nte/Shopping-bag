@@ -8,8 +8,8 @@ namespace Shopping_bag.Interfaces
 {
     public interface IShoppingBagService
     {
-        public void AddToCart(Product product, int amount);
-        public int RemoveFromCart(Product product);
+        public Task AddToCart(Guid productId, int amount);
+        public int RemoveFromCart(Guid product);
         public ShoppingBag GetShoppingCartItems();
         public decimal GetShoppingCartTotal();
     }

@@ -28,10 +28,11 @@ namespace Shopping_bag
             services.AddControllersWithViews();
 
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IShoppingBagService, ShoppingBagService>();
+
 
             services.AddHttpContextAccessor();
             services.AddSession();
+            services.AddScoped<IShoppingBagService, ShoppingBagService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

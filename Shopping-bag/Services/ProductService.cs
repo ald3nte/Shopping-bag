@@ -10,11 +10,11 @@ namespace Shopping_bag.Services
     {
         private static readonly ISet<Product> _products = new HashSet<Product>
             {
-                new Product(1,"T-shirt",99.99,DateTime.Now),
-                new Product(2,"Skirt",79.99,DateTime.Now),
-                new Product(3,"Jogger",80.99,DateTime.Now),
-                new Product(4,"Bag",20.99,DateTime.Now),
-                new Product(5,"Cap",15.00,DateTime.Now)
+                new Product(Guid.NewGuid(),"T-shirt",99.99,DateTime.Now),
+                new Product(Guid.NewGuid(),"Skirt",79.99,DateTime.Now),
+                new Product(Guid.NewGuid(),"Jogger",80.99,DateTime.Now),
+                new Product(Guid.NewGuid(),"Bag",20.99,DateTime.Now),
+                new Product(Guid.NewGuid(),"Cap",15.00,DateTime.Now)
             };
         public async Task<IEnumerable<Product>>GetProducts()
             {
@@ -22,5 +22,10 @@ namespace Shopping_bag.Services
 
             return await Task.FromResult(products);
             }
+        public async Task<Product>GetProductById(Guid productId)
+        {
+            var product = _products.FirstOrDefault(p => p.Id == productId);
+            return await Task.FromResult(product);
+        }
     }
 }

@@ -9,13 +9,13 @@ namespace Shopping_bag.Models
     {
         public Guid Id { get; set; }
         public int amount { get; set; }
-        public Guid productId { get; set; }
+        public Product product { get; set; }
         public ShoppingBag shoppingBag { get; set; }
-        public ShoppingBagItem(Guid id, int amount, Guid productId)
+        public ShoppingBagItem(Guid id, int amount, Product product)
         {
             Id = id;
             this.amount = amount;
-            this.productId = productId;
+            this.product = product;
         }
     }
 }

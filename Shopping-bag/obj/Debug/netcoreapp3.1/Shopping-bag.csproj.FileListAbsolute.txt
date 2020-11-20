@@ -35,3 +35,5 @@ C:\Users\sjsha\Documents\Project\Projekty Git\Shopping-bag\Shopping-bag\obj\Debu
 C:\Users\sjsha\Documents\Project\Projekty Git\Shopping-bag\Shopping-bag\obj\Debug\netcoreapp3.1\Shopping-bag.pdb
 C:\Users\sjsha\Documents\Project\Projekty Git\Shopping-bag\Shopping-bag\obj\Debug\netcoreapp3.1\Shopping-bag.genruntimeconfig.cache
 C:\Users\sjsha\Documents\Project\Projekty Git\Shopping-bag\Shopping-bag\obj\Debug\netcoreapp3.1\Shopping-bag.csproj.CopyComplete
+C:\Users\sjsha\Documents\Project\Projekty Git\Shopping-bag\Shopping-bag\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ShoppingBagSummary\Default.cshtml.g.cs
+C:\Users\sjsha\Documents\Project\Projekty Git\Shopping-bag\Shopping-bag\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\ShoppingBagItemsList.cshtml.g.cs
